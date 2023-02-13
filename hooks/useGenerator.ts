@@ -1,4 +1,4 @@
-import { useState } from "preact/hooks";
+import { resultURL } from "../signals/resultURL.ts";
 
 const SYMBOLS = {
   SPACE: "+",
@@ -13,8 +13,6 @@ const SYMBOLS = {
 export default function useGenerator(
   { text, url }: { text: string; url: string },
 ) {
-  const [result, setResult] = useState("");
-
   const counterCharacter = 280 - url.length - text.length;
 
   const textResult = text
@@ -33,10 +31,9 @@ export default function useGenerator(
 
   const finalResult = `https://twitter.com/intent/tweet${textResultWithUrl}`;
 
-  setResult(finalResult);
+  resultURL.value = finalResult;
 
   return {
-    result,
     counterCharacter,
   };
 }
