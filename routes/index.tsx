@@ -1,24 +1,48 @@
 import { Head } from "$fresh/runtime.ts";
-import { Button } from "../components/Button.tsx";
-import TwitterIcon from "../components/Icons/TwitterIcon.tsx";
 import InputText from "../islands/InputText.tsx";
+import { Handlers, PageProps } from "$fresh/server.ts";
+import Footer from "../components/Footer.tsx";
+import Header from "../components/Header.tsx";
+import ResultIntent from "../islands/ResultIntent.tsx";
 
-export default function Home() {
+interface StarRepo {
+  stargazers_count: number;
+}
+
+export const handler: Handlers<StarRepo> = {
+  async GET(req, ctx) {
+    const repos = await fetch("https://api.github.com/users/vab1997/repos")
+      .then((res) => {
+        return res.json();
+      }).then((res) => res);
+
+    const repo = repos.filter((repo: { name: string }) =>
+      repo.name === "twitter-intent-generator"
+    );
+    const stars = repo[0].stargazers_count;
+
+    return ctx.render({ stargazers_count: stars });
+  },
+};
+
+export default function Home(props: PageProps<StarRepo>) {
+  const { data } = props;
+  const { stargazers_count } = data;
+
   return (
     <>
       <Head>
-        <title>Fresh App</title>
+        <title>Twitter Intent Generator</title>
+        <meta name="description" content="Twitter Intent Generator" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <body class="p-4 mx-auto max-w-screen-md bg-black">
+        <Header stargazers_count={stargazers_count} />
         <main>
-          <h1 class="flex items-center justify-center gap-8 text-4xl font-bold text-[#00AAEC] text-transparent bg-clip-text bg-gradient-to-r from-[#00AAEC] to-blue-100">
-            <span class="text-[#00AAEC]">
-              <TwitterIcon width={96} height={96} />
-            </span>
-            Twitter intent generator
-          </h1>
           <InputText />
+          <ResultIntent />
         </main>
+        <Footer />
       </body>
     </>
   );
