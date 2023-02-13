@@ -1,6 +1,8 @@
-export default function CopyIcon() {
+import { JSX } from "preact/jsx-runtime";
+
+export default function CopyIcon(props: JSX.SVGAttributes<SVGSVGElement>) {
   return (
-    <svg class="w-7 h-7 -mx-1" viewBox="0 0 21 21">
+    <svg class="w-6 h-6 -mx-1" viewBox="0 0 21 21" {...props}>
       <g
         fill="none"
         fill-rule="evenodd"
