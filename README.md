@@ -25,5 +25,6 @@ deno task start # Run the application in development mode
 
 ## Things to do
 
+- 🔹 Add toast notifications when clicking on the Copy to clipboard button
 - 🔹 Improve design aspects
 - 🔹 Add tests
