@@ -1,8 +1,8 @@
-import { Head } from "$fresh/runtime.ts";
-import InputText from "../islands/InputText.tsx";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import Footer from "../components/Footer.tsx";
 import Header from "../components/Header.tsx";
+import HeadPage from "../components/Head.tsx";
+import InputText from "../islands/InputText.tsx";
 import ResultIntent from "../islands/ResultIntent.tsx";
 
 interface StarRepo {
@@ -31,11 +31,7 @@ export default function Home(props: PageProps<StarRepo>) {
 
   return (
     <>
-      <Head>
-        <title>Twitter Intent Generator</title>
-        <meta name="description" content="Twitter Intent Generator" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <HeadPage />
       <body class="p-4 mx-auto max-w-screen-md bg-black">
         <Header stargazers_count={stargazers_count} />
         <main>
