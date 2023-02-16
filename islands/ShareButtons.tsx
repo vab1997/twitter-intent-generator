@@ -9,7 +9,7 @@ export default function ShareButton() {
   };
 
   return (
-    <div class="flex items-center justify-center gap-4">
+    <div class="flex items-center justify-center gap-4 mt-2">
       <Button onClick={copyToClipboard}>
         <CopyIcon width={24} height={24} />
         Copy to clipboard
